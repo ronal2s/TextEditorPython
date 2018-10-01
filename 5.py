@@ -16,6 +16,13 @@ def writeInXLine(text):
     text[numberLine] = newLine
     return text
 
+def saveFile(text):
+    fileName = raw_input("Filaname: ")
+    file = open(fileName, 'w')
+    file.writelines(text)
+    file.close()
+    return text
+
 def readFile(name):
     file = open(name, "r+")
     lines = file.readlines()    
@@ -24,6 +31,7 @@ def readFile(name):
     return lines
 
 def readText(text):
+    print("Q: Ident\tW: Replace in X line\t S: Save")
     for i in range(len(text)):
         print ('['+str(i)+'] ' + text[i])
 
@@ -35,11 +43,12 @@ def manageKeys(key, text):
         newText = indentText(text)
     if(key == 'w'):
         newText = writeInXLine(text)
+    if(key == 's'):
+        newText = saveFile(text)
 
     return newText
 
-def waitForKey(text):
-    print("Q: Ident\tW: Replace in X line")
+def waitForKey(text):    
     thread = threading.currentThread()
     newText = None
     while getattr(thread, "running", True):
